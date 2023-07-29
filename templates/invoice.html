@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+<form action="{% url 'create_invoice' %}" method="post">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col">
+            <div class="mb-3">
+                <label class="form-label">invoice date</label>
+                <input required type="date" class="form-control" id="invoicedate" name="invoice_date">
+            </div>
+        </div>
+        <div class="col">
+            <div class="mb-3">
+                <label class="form-label">invoice number</label>
+                <input required type="text" class="form-control" id="invoice_number" name="invoice_number">
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="mb-3">
+                <label class="form-label">Customer Name</label>
+                <input required type="text" class="form-control" id="cust_name" name="customer_name">
+            </div>
+        </div>
+        <div class="col">
+            <div class="mb-3">
+                <label class="form-label"> due date </label>
+                <input  required type="date" class="form-control" id="due_date" name="due_date">
+            </div>
+
+        </div>
+    </div>
+
+    <table class="table table-bordered border-primary" id="invoicerow">
+
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Product name</th>
+                <th scope="col">Qty</th>
+                <th scope="col">Rate</th>
+                <th scope="col">Total</th>
+            </tr>
+        </thead>
+        <!-- Give ID to table body -->
+        <tbody id="invoicetable" > 
+            <tr>
+                <th scope="row">1</th>
+                <td><input required type="text" class="form-control" id="product_name1" name="product_name1"></td>
+                <td> <input required type="number" class="form-control" id="qty1" name="qty1"></td>
+                <td><input required type="number" class="form-control" id="rate1" name="rate1"></td>
+                <td><input required type="number" class="form-control" id="total1" name="total1"></td>
+            </tr>
+           
+        </tbody>
+
+    </table>
+    <input type="text" hidden name="count" id="count" value="1">
+    <button type="button" class="btn btn-primary" onclick="addrow()">Click here to add row</button>
+    <br>
+    <button type="submit" class="btn btn-primary">Print Invoice</button>
+ 
+</form>
+
+<script>
+    function addrow()
+    {
+        let index=Number($("#invoicetable tr").length)+Number(1)
+        let row='<tr> <th scope="row"> '+index+' </th> <td><input type="text" class="form-control" id="product_name1" name="product_name'+index+'"></td> <td> <input type="number" class="form-control" id="qty1" name="qty'+index+'"></td> <td><input type="number" class="form-control" id="rate1" name="rate'+index+'"></td> <td><input type="number" class="form-control" id="total1" name="total'+index+'"></td> </tr>'
+      
+        console.log($("#invoicetable").html())
+        let html  = ($("#invoicetable").html()) + row
+        $("#invoicetable").append(row)
+        $("#count").val(index)
+        
+
+        // $("#invoicetable").empty()
+        // $("#invoicetable").html(html)
+        // console.log($("#invoicetable tr").length)
+
+        // let tbody=document.getElementById("invoicerow").getElementsByTagName("tbody")
+        // tbody.addrow()
+        // console.log(document.getElementById("invoicerow").getElementsByTagName("tbody")[0])
+        
+    }
+</script>
+
+{% endblock content %}

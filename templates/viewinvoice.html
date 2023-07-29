@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<table class="table table-bordered border-primary" id="invoicerow">
+
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+          
+            <th scope="col">Date</th>
+            <th scope="col">Invoice Number</th>
+            <th scope="col">Name</th>
+            <th scope="col">Due Date</th>
+            <th scope="col">Product name</th>
+            <th scope="col">Qty</th>
+            <th scope="col">Rate</th>
+            <th scope="col">Total</th>
+            <th scope="col"> Delete Invoice </th>
+
+        </tr>
+    </thead>
+    <tbody >
+        {% for i in invoice1 %}
+        <tr>
+            <th scope="row"> {{forloop.counter}}</th>
+            <td> {{i.invoice_date}} </td>
+            <td> {{i.invoice_number}}</td>
+            <td> {{i.name}}</td>
+            <td> {{i.due_date}}</td>
+            <td> {{i.product_name1}}</td>
+            <td> {{i.qty1}}</td>
+            <td> {{i.rate1}}</td>
+            <td> {{i.total1}}</td>
+            <td> <a class="btn btn-danger" href="{% url 'deleteinvoice' i.id %}"> Delete </a> </td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+{% endblock content %}
